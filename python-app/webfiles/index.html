@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPSH Real-Time Monitor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 NPSH Real-Time Monitor</h1>
+            <p>Continuous Pump Cavitation Risk Analysis</p>
+        </div>
+
+        <div class="alert alert-success" id="successAlert"></div>
+        <div class="alert alert-error" id="errorAlert"></div>
+
+        <!-- Button IDs must match exactly what's in the JS file -->
+        <div class="controls">
+            <button class="btn" id="pumpStartButton">▶️ Start Pump</button>
+            <button class="btn btn-secondary" id="pumpStopButton">⏹️ Stop Pump</button>
+            <button class="btn" id="monitorToggleButton">📊 Start Monitoring</button>
+            <button class="btn btn-export" id="exportDataButton">📥 Export CSV</button>
+            <div id="connectionStatus" class="status-warning">Disconnected</div>
+        </div>
+
+        <div class="pump-metadata" id="pumpMetadata">
+            <!-- This will be populated by JavaScript -->
+        </div>
+
+        <div class="plc-status-panel" id="plcStatusSummary">
+            <!-- This will be populated by JavaScript -->
+        </div>
+
+        <div class="chart-container" id="chartContainer">
+            <h3>📊 Real-Time NPSH Monitoring</h3>
+            <canvas id="npshChart"></canvas>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 Real-Time NPSH Monitoring System | Built with Modern Web Technologies</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script src="script.js"></script>
+</body>
+</html>

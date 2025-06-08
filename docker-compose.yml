@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  node-app:
+    build:
+      context: ./node-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./node-app:/app
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped
+    networks:
+      - app-network
+    depends_on:
+      - python-app
+
+  python-app:
+    build:
+      context: ./python-app
+    ports:
+      - "502:502"
+      - "5900:5900"  # VNC port
+      - "6080:6080"  # noVNC web interface
+    volumes:
+      - ./python-app:/app
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

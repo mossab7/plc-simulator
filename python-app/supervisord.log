@@ -1,0 +1,128 @@
+2025-06-08 03:35:41,968 INFO Set uid to user 0 succeeded
+2025-06-08 03:35:41,973 INFO supervisord started with pid 1
+2025-06-08 03:35:42,978 INFO spawned: 'xvfb' with pid 7
+2025-06-08 03:35:42,982 INFO spawned: 'x11vnc' with pid 8
+2025-06-08 03:35:42,988 INFO spawned: 'novnc' with pid 9
+2025-06-08 03:35:42,993 INFO spawned: 'plc' with pid 10
+2025-06-08 03:35:44,909 INFO success: xvfb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 03:35:44,909 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 03:35:44,909 INFO success: novnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 03:35:44,910 INFO success: plc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 03:38:45,803 WARN received SIGTERM indicating exit request
+2025-06-08 03:38:45,804 INFO waiting for xvfb, x11vnc, novnc, plc to die
+2025-06-08 03:38:45,814 WARN stopped: plc (terminated by SIGTERM)
+2025-06-08 03:38:45,993 INFO stopped: novnc (exit status 0)
+2025-06-08 03:38:46,004 WARN stopped: x11vnc (exit status 2)
+2025-06-08 03:38:46,035 INFO stopped: xvfb (exit status 0)
+2025-06-08 04:03:44,894 INFO Set uid to user 0 succeeded
+2025-06-08 04:03:44,898 INFO supervisord started with pid 1
+2025-06-08 04:03:45,903 INFO spawned: 'xvfb' with pid 7
+2025-06-08 04:03:45,909 INFO spawned: 'x11vnc' with pid 8
+2025-06-08 04:03:45,917 INFO spawned: 'novnc' with pid 9
+2025-06-08 04:03:45,927 INFO spawned: 'plc' with pid 10
+2025-06-08 04:03:47,531 INFO success: xvfb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 04:03:47,531 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 04:03:47,532 INFO success: novnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 04:03:47,532 INFO success: plc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 04:07:55,335 WARN received SIGTERM indicating exit request
+2025-06-08 04:07:55,335 INFO waiting for xvfb, x11vnc, novnc, plc to die
+2025-06-08 04:07:55,339 WARN stopped: plc (terminated by SIGTERM)
+2025-06-08 04:07:55,446 INFO stopped: novnc (exit status 0)
+2025-06-08 04:07:55,456 WARN stopped: x11vnc (exit status 2)
+2025-06-08 04:07:55,469 INFO stopped: xvfb (exit status 0)
+2025-06-08 04:19:43,992 INFO Set uid to user 0 succeeded
+2025-06-08 04:19:43,996 INFO supervisord started with pid 1
+2025-06-08 04:19:45,001 INFO spawned: 'xvfb' with pid 7
+2025-06-08 04:19:45,009 INFO spawned: 'x11vnc' with pid 8
+2025-06-08 04:19:45,023 INFO spawned: 'novnc' with pid 9
+2025-06-08 04:19:45,032 INFO spawned: 'plc' with pid 10
+2025-06-08 04:19:46,610 INFO success: xvfb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 04:19:46,611 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 04:19:46,611 INFO success: novnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 04:19:46,611 INFO success: plc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 04:22:11,864 WARN received SIGTERM indicating exit request
+2025-06-08 04:22:11,865 INFO waiting for xvfb, x11vnc, novnc, plc to die
+2025-06-08 04:22:11,875 WARN stopped: plc (terminated by SIGTERM)
+2025-06-08 04:22:12,144 INFO stopped: novnc (exit status 0)
+2025-06-08 04:22:12,151 WARN stopped: x11vnc (exit status 2)
+2025-06-08 04:22:12,171 INFO stopped: xvfb (exit status 0)
+2025-06-08 04:25:26,111 INFO Set uid to user 0 succeeded
+2025-06-08 04:25:26,114 INFO supervisord started with pid 1
+2025-06-08 04:25:27,119 INFO spawned: 'xvfb' with pid 7
+2025-06-08 04:25:27,126 INFO spawned: 'x11vnc' with pid 8
+2025-06-08 04:25:27,134 INFO spawned: 'novnc' with pid 9
+2025-06-08 04:25:27,142 INFO spawned: 'plc' with pid 10
+2025-06-08 04:25:28,487 INFO success: xvfb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 04:25:28,487 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 04:25:28,487 INFO success: novnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 04:25:28,487 INFO success: plc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 04:26:15,702 WARN received SIGTERM indicating exit request
+2025-06-08 04:26:15,703 INFO waiting for xvfb, x11vnc, novnc, plc to die
+2025-06-08 04:26:15,714 WARN stopped: plc (terminated by SIGTERM)
+2025-06-08 04:26:15,908 INFO stopped: novnc (exit status 0)
+2025-06-08 04:26:15,915 WARN stopped: x11vnc (exit status 2)
+2025-06-08 04:26:15,947 INFO stopped: xvfb (exit status 0)
+2025-06-08 04:31:45,831 INFO Set uid to user 0 succeeded
+2025-06-08 04:31:45,834 INFO supervisord started with pid 1
+2025-06-08 04:31:46,839 INFO spawned: 'xvfb' with pid 7
+2025-06-08 04:31:46,846 INFO spawned: 'x11vnc' with pid 8
+2025-06-08 04:31:46,855 INFO spawned: 'novnc' with pid 9
+2025-06-08 04:31:46,865 INFO spawned: 'plc' with pid 10
+2025-06-08 04:31:48,235 INFO success: xvfb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 04:31:48,236 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 04:31:48,236 INFO success: novnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 04:31:48,236 INFO success: plc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 04:33:25,921 WARN received SIGTERM indicating exit request
+2025-06-08 04:33:25,921 INFO waiting for xvfb, x11vnc, novnc, plc to die
+2025-06-08 04:33:25,931 WARN stopped: plc (terminated by SIGTERM)
+2025-06-08 04:33:26,107 INFO stopped: novnc (exit status 0)
+2025-06-08 04:33:26,116 WARN stopped: x11vnc (exit status 2)
+2025-06-08 04:33:26,141 INFO stopped: xvfb (exit status 0)
+2025-06-08 16:17:41,972 INFO Set uid to user 0 succeeded
+2025-06-08 16:17:41,976 INFO supervisord started with pid 1
+2025-06-08 16:17:42,979 INFO spawned: 'xvfb' with pid 7
+2025-06-08 16:17:42,982 INFO spawned: 'x11vnc' with pid 8
+2025-06-08 16:17:42,985 INFO spawned: 'novnc' with pid 9
+2025-06-08 16:17:42,988 INFO spawned: 'plc' with pid 10
+2025-06-08 16:17:44,586 INFO success: xvfb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 16:17:44,586 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 16:17:44,587 INFO success: novnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 16:17:44,587 INFO success: plc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 16:24:01,240 WARN received SIGTERM indicating exit request
+2025-06-08 16:24:01,241 INFO waiting for xvfb, x11vnc, novnc, plc to die
+2025-06-08 16:24:01,251 WARN stopped: plc (terminated by SIGTERM)
+2025-06-08 16:24:01,536 INFO stopped: novnc (exit status 0)
+2025-06-08 16:24:01,549 WARN stopped: x11vnc (exit status 2)
+2025-06-08 16:24:01,581 INFO stopped: xvfb (exit status 0)
+2025-06-08 16:26:18,536 INFO Set uid to user 0 succeeded
+2025-06-08 16:26:18,538 INFO supervisord started with pid 1
+2025-06-08 16:26:19,541 INFO spawned: 'xvfb' with pid 7
+2025-06-08 16:26:19,543 INFO spawned: 'x11vnc' with pid 8
+2025-06-08 16:26:19,546 INFO spawned: 'novnc' with pid 9
+2025-06-08 16:26:19,549 INFO spawned: 'plc' with pid 10
+2025-06-08 16:26:20,874 INFO success: xvfb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 16:26:20,874 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 16:26:20,875 INFO success: novnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 16:26:20,875 INFO success: plc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 16:36:40,999 WARN received SIGTERM indicating exit request
+2025-06-08 16:36:41,000 INFO waiting for xvfb, x11vnc, novnc, plc to die
+2025-06-08 16:36:41,010 WARN stopped: plc (terminated by SIGTERM)
+2025-06-08 16:36:41,150 INFO stopped: novnc (exit status 0)
+2025-06-08 16:36:41,154 WARN stopped: x11vnc (exit status 2)
+2025-06-08 16:36:41,168 INFO stopped: xvfb (exit status 0)
+2025-06-08 16:43:55,332 INFO Set uid to user 0 succeeded
+2025-06-08 16:43:55,335 INFO supervisord started with pid 1
+2025-06-08 16:43:56,339 INFO spawned: 'xvfb' with pid 7
+2025-06-08 16:43:56,345 INFO spawned: 'x11vnc' with pid 8
+2025-06-08 16:43:56,352 INFO spawned: 'novnc' with pid 9
+2025-06-08 16:43:56,359 INFO spawned: 'plc' with pid 10
+2025-06-08 16:43:57,782 INFO success: xvfb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 16:43:57,782 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 16:43:57,782 INFO success: novnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 16:43:57,782 INFO success: plc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-06-08 16:45:17,782 WARN received SIGTERM indicating exit request
+2025-06-08 16:45:17,782 INFO waiting for xvfb, x11vnc, novnc, plc to die
+2025-06-08 16:45:17,785 WARN stopped: plc (terminated by SIGTERM)
+2025-06-08 16:45:17,835 INFO stopped: novnc (exit status 0)
+2025-06-08 16:45:17,837 WARN stopped: x11vnc (exit status 2)
+2025-06-08 16:45:17,847 INFO stopped: xvfb (exit status 0)

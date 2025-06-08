@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLC Simulator Control Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 80vh;
+        }
+
+        .panel {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .panel:first-child {
+            border-right: 2px solid #e0e0e0;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .panel:last-child {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .panel-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .panel h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .panel p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .access-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+        }
+
+        .access-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .status-bar {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #27ae60;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .info-section {
+            padding: 30px;
+            background: #f8f9fa;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .info-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .info-card p {
+            color: #7f8c8d;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .panel:first-child {
+                border-right: none;
+                border-bottom: 2px solid #e0e0e0;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .status-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏭 PLC Simulator Control Panel</h1>
+            <p class="subtitle">Industrial Automation & Web Interface</p>
+        </div>
+
+        <div class="main-content">
+            <div class="panel">
+                <div class="panel-icon">🖥️</div>
+                <h2>PLC GUI Interface</h2>
+                <p>Access the full graphical user interface of the PLC simulator. Monitor real-time data, control parameters, and visualize industrial processes.</p>
+                <a href="http://localhost:6080/vnc.html" target="_blank" class="access-button">
+                    Open PLC GUI
+                </a>
+            </div>
+
+            <div class="panel">
+                <div class="panel-icon">🌐</div>
+                <h2>Web Application</h2>
+                <p>Access the web-based control panel and monitoring interface. Configure settings, view reports, and manage system parameters through your browser.</p>
+                <a href="http://localhost:3000" target="_blank" class="access-button">
+                    Open Web App
+                </a>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>PLC Simulator: Active</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>Modbus TCP: Port 502</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>Web Server: Port 3000</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>VNC Server: Port 6080</span>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2 style="text-align: center; color: #2c3e50; margin-bottom: 10px;">System Access Information</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🔐 VNC Access</h3>
+                    <p>Password: <strong>plcgui123</strong><br>
+                    Direct VNC: localhost:5901<br>
+                    Web VNC: localhost:6080</p>
+                </div>
+                <div class="info-card">
+                    <h3>📊 Modbus TCP</h3>
+                    <p>Host: localhost<br>
+                    Port: <strong>502</strong><br>
+                    Protocol: Modbus TCP/IP</p>
+                </div>
+                <div class="info-card">
+                    <h3>🌐 Web Interface</h3>
+                    <p>URL: localhost:3000<br>
+                    Protocol: HTTP<br>
+                    API: RESTful endpoints</p>
+                </div>
+                <div class="info-card">
+                    <h3>⚙️ System Info</h3>
+                    <p>Platform: Docker<br>
+                    OS Support: Windows, Linux, macOS<br>
+                    GUI: Web-based VNC</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check service availability
+        async function checkServices() {
+            const services = [
+                { name: 'Web App', url: 'http://localhost:3000', element: 'webapp-status' },
+                { name: 'VNC', url: 'http://localhost:6080', element: 'vnc-status' }
+            ];
+
+            services.forEach(async (service) => {
+                try {
+                    const response = await fetch(service.url, { method: 'HEAD', mode: 'no-cors' });
+                    console.log(`${service.name}: Available`);
+                } catch (error) {
+                    console.log(`${service.name}: Checking...`);
+                }
+            });
+        }
+
+        // Auto-refresh status every 30 seconds
+        setInterval(checkServices, 30000);
+        checkServices();
+
+        // Add click effects
+        document.querySelectorAll('.access-button').forEach(button => {
+            button.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>
