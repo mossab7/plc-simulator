@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   node-app:
     build:
@@ -8,11 +6,6 @@ services:
       - "3000:3000"
     volumes:
       - ./node-app:/app
-    environment:
-      - NODE_ENV=development
-    restart: unless-stopped
-    networks:
-      - app-network
     depends_on:
       - python-app
 
@@ -21,13 +14,17 @@ services:
       context: ./python-app
     ports:
       - "502:502"
-      - "5900:5900"  # VNC port
-      - "6080:6080"  # noVNC web interface
+      - "5901:5901"
+      - "6080:6080"
     volumes:
       - ./python-app:/app
-    restart: unless-stopped
-    networks:
-      - app-network
+
+  web-panel:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/usr/share/nginx/html
 
 networks:
   app-network:
