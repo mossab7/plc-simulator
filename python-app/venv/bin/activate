@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV=/home/blackstar/fala/webpage/python-app/venv
+VIRTUAL_ENV=/home/blackstar/plc/python-app/venv
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

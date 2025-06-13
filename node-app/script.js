@@ -3,6 +3,9 @@ let npshChart = null;
 let monitoringInterval = null;
 let pumpRunning = false;
 let cavitationCountdown = null; // Added for cavitation risk management
+let manualCancellationTime = null; // Track when user manually cancels
+let automaticStopTime = null; // Track when pump was automatically stopped due to cavitation
+const CANCELLATION_GRACE_PERIOD = 60000; // 60 seconds grace period after manual cancellation
 
 // Real-time data management
 const realTimeData = {
@@ -176,6 +179,11 @@ function createEmptyChart() {
 // Start the pump
 async function startPump() {
   try {
+    // Check if we're trying to start during a manual cancellation grace period
+    if (!checkManualCancellation()) {
+      return;
+    }
+    
     console.log('Starting pump...');
     document.getElementById('pumpStartButton').disabled = true;
     
@@ -190,6 +198,7 @@ async function startPump() {
     if (data.success) {
       showAlert('Pump started successfully', 'success');
       pumpRunning = true;
+      automaticStopTime = null; // Reset automatic stop time when manually starting pump
       updatePumpStatusIndicator(true);
       
       // Start monitoring if not already
@@ -197,7 +206,14 @@ async function startPump() {
         startRealTimeMonitoring();
       } else {
         // Immediately fetch new data to update the UI
-        await fetchPLCData();  // Added this line
+        await fetchPLCData();
+        
+        // Immediately check for cavitation risk after fetching data
+        const lastData = realTimeData.dataPoints[realTimeData.dataPoints.length - 1];
+        if (lastData && lastData.npsha < lastData.npshr) {
+          // Force handle cavitation risk immediately
+          handleCavitationRisk();
+        }
       }
     } else {
       showAlert(`Failed to start pump: ${data.message}`, 'error');
@@ -391,10 +407,17 @@ function updatePLCStatus(plcData) {
   
   // Handle cavitation risk detection
   if (isCavitationRisk && pumpRunning && !cavitationCountdown) {
-    handleCavitationRisk();
+    // Only start countdown if we're not in a grace period after manual cancellation or automatic stop
+    const now = Date.now();
+    const isInManualCancellationGrace = manualCancellationTime && now - manualCancellationTime <= CANCELLATION_GRACE_PERIOD;
+    const isInAutomaticStopGrace = automaticStopTime && now - automaticStopTime <= CANCELLATION_GRACE_PERIOD;
+    
+    if (!isInManualCancellationGrace && !isInAutomaticStopGrace) {
+      handleCavitationRisk();
+    }
   } else if (!isCavitationRisk && cavitationCountdown) {
     // Cancel countdown if condition is resolved
-    clearCavitationCountdown();
+    clearCavitationCountdown(false); // Pass false to indicate it's not a manual cancellation
   }
   
   // Calculate remaining time for display
@@ -402,7 +425,15 @@ function updatePLCStatus(plcData) {
   if (cavitationCountdown) {
     const remainingSeconds = Math.ceil((cavitationCountdown.targetTime - Date.now()) / 1000);
     countdownDisplay = `<div class="countdown-warning">⚠️ CAVITATION RISK DETECTED! Pump will stop in ${remainingSeconds} seconds. 
-      <button class="btn btn-sm btn-secondary" onclick="clearCavitationCountdown()">Cancel</button></div>`;
+      <button id="cancelCavitationBtn" class="btn btn-sm btn-secondary">Cancel</button></div>`;
+    
+    // After updating the innerHTML
+    setTimeout(() => {
+      const cancelBtn = document.getElementById('cancelCavitationBtn');
+      if (cancelBtn) {
+        cancelBtn.addEventListener('click', clearCavitationCountdown);
+      }
+    }, 0);
   }
   
   // Update status display with improved layout
@@ -477,8 +508,7 @@ function updatePumpMetadata(metadata) {
       <span class="metadata-value">${metadata.aorMin || '0'}-${metadata.aorMax || '0'} m³/h</span>
     </div>
     <div class="metadata-item">
-      <span class="metadata-label">POR Range:</span>
-      <span class="metadata-value">${metadata.porMin || '0'}-${metadata.porMax || '0'} m³/h</span>
+     
     </div>
     <div class="metadata-item">
       <span class="metadata-label">Rated NPSHr:</span>
@@ -594,6 +624,7 @@ function handleCavitationRisk() {
       stopPump();
       showAlert('Pump automatically stopped due to cavitation risk', 'error');
       cavitationCountdown = null;
+      automaticStopTime = Date.now(); // Add this line to track automatic stop time
     }, 30000)
   };
   
@@ -613,11 +644,33 @@ function handleCavitationRisk() {
 }
 
 // Clear cavitation countdown if conditions improve or user cancels
-function clearCavitationCountdown() {
+function clearCavitationCountdown(isManualCancellation = true) {
   if (cavitationCountdown) {
     clearTimeout(cavitationCountdown.timer);
     clearInterval(cavitationCountdown.displayTimer);
     cavitationCountdown = null;
-    showAlert('Automatic pump shutdown canceled', 'success');
+    
+    if (isManualCancellation) {
+      manualCancellationTime = Date.now();
+      showAlert('Automatic pump shutdown canceled. Monitoring suppressed for 60 seconds.', 'success');
+    } else {
+      showAlert('Automatic pump shutdown canceled - conditions improved', 'success');
+    }
   }
 }
+
+// Check if we should allow pump start after manual cancellation
+function checkManualCancellation() {
+  if (manualCancellationTime) {
+    const elapsed = Date.now() - manualCancellationTime;
+    if (elapsed < CANCELLATION_GRACE_PERIOD) {
+      const remainingSeconds = Math.ceil((CANCELLATION_GRACE_PERIOD - elapsed) / 1000);
+      showAlert(`Pump start disabled for ${remainingSeconds} seconds due to recent manual cancellation`, 'error');
+      return false;
+    } else {
+      manualCancellationTime = null; // Reset after grace period
+    }
+  }
+  return true;
+}
+
