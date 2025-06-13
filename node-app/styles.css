@@ -523,6 +523,24 @@ canvas#npshChart {
     background-color: rgba(231, 76, 60, 0.1);
 }
 
+/* Countdown warning box */
+.countdown-warning {
+  background-color: #f8d7da;
+  color: #721c24;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+  text-align: center;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
 /* Responsive adjustment */
 @media (max-width: 768px) {
     .status-panels {

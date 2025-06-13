@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox
 import threading
 import time
 import random
-from pymodbus.server import StartTcpServer
+from pymodbus.server.sync import StartTcpServer
 from pymodbus.datastore import ModbusSequentialDataBlock
 from pymodbus.datastore import ModbusSlaveContext, ModbusServerContext
 

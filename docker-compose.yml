@@ -1,23 +1,18 @@
+version: '3'
+
 services:
   node-app:
     build:
       context: ./node-app
     ports:
       - "3000:3000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./node-app:/app
-    depends_on:
-      - python-app
-
-  python-app:
-    build:
-      context: ./python-app
-    ports:
-      - "502:502"
-      - "5901:5901"
-      - "6080:6080"
-    volumes:
-      - ./python-app:/app
+    environment:
+      - PLC_HOST=host.docker.internal
+      - PLC_PORT=502
 
   web-panel:
     image: nginx:alpine
@@ -25,7 +20,3 @@ services:
       - "80:80"
     volumes:
       - ./:/usr/share/nginx/html
-
-networks:
-  app-network:
-    driver: bridge

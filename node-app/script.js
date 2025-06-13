@@ -2,6 +2,7 @@
 let npshChart = null;
 let monitoringInterval = null;
 let pumpRunning = false;
+let cavitationCountdown = null; // Added for cavitation risk management
 
 // Real-time data management
 const realTimeData = {
@@ -383,9 +384,26 @@ function updatePLCStatus(plcData) {
   }
   
   // Safe status class
-  const statusClass = plcData.npsha >= plcData.npshr ? 'status-ok' : 'status-warning';
+  const isCavitationRisk = plcData.npsha < plcData.npshr;
+  const statusClass = isCavitationRisk ? 'status-warning' : 'status-ok';
   const margin = (plcData.npsha - plcData.npshr).toFixed(2);
   const timestamp = new Date().toLocaleTimeString();
+  
+  // Handle cavitation risk detection
+  if (isCavitationRisk && pumpRunning && !cavitationCountdown) {
+    handleCavitationRisk();
+  } else if (!isCavitationRisk && cavitationCountdown) {
+    // Cancel countdown if condition is resolved
+    clearCavitationCountdown();
+  }
+  
+  // Calculate remaining time for display
+  let countdownDisplay = '';
+  if (cavitationCountdown) {
+    const remainingSeconds = Math.ceil((cavitationCountdown.targetTime - Date.now()) / 1000);
+    countdownDisplay = `<div class="countdown-warning">⚠️ CAVITATION RISK DETECTED! Pump will stop in ${remainingSeconds} seconds. 
+      <button class="btn btn-sm btn-secondary" onclick="clearCavitationCountdown()">Cancel</button></div>`;
+  }
   
   // Update status display with improved layout
   statusSummary.innerHTML = `
@@ -395,6 +413,7 @@ function updatePLCStatus(plcData) {
         Pump: ${pumpRunning ? 'RUNNING' : 'STOPPED'}
       </div>
     </div>
+    ${countdownDisplay}
     
     <div class="status-panels">
       <div class="status-panel primary-readings">
@@ -428,7 +447,7 @@ function updatePLCStatus(plcData) {
           </div>
           <div class="status-item highlight">
             <span class="status-label">Safety Margin:</span>
-            <span class="status-value ${statusClass}">${margin} m ${plcData.npsha >= plcData.npshr ? '✅' : '⚠️'}</span>
+            <span class="status-value ${statusClass}">${margin} m ${isCavitationRisk ? '⚠️' : '✅'}</span>
           </div>
         </div>
       </div>
@@ -552,4 +571,53 @@ function exportDataToCsv() {
   document.body.removeChild(link);
   
   showAlert('CSV file exported successfully', 'success');
+}
+
+// Handle cavitation risk detection
+function handleCavitationRisk() {
+  // Show immediate alert
+  showAlert('CAVITATION RISK DETECTED! Pump will automatically stop in 30 seconds.', 'error');
+  
+  // Play alert sound if available
+  const alertSound = document.getElementById('alertSound');
+  if (alertSound) {
+    alertSound.play().catch(e => console.log('Error playing alert sound:', e));
+  }
+  
+  // Set up countdown
+  const targetTime = Date.now() + 30000; // 30 seconds from now
+  
+  cavitationCountdown = {
+    targetTime: targetTime,
+    timer: setTimeout(() => {
+      // Stop the pump after countdown
+      stopPump();
+      showAlert('Pump automatically stopped due to cavitation risk', 'error');
+      cavitationCountdown = null;
+    }, 30000)
+  };
+  
+  // Start a faster interval to update the countdown display
+  cavitationCountdown.displayTimer = setInterval(() => {
+    // Force update UI to show countdown
+    if (realTimeData.isMonitoring) {
+      const statusSummary = document.getElementById('plcStatusSummary');
+      if (statusSummary && statusSummary.querySelector('.countdown-warning')) {
+        const remainingSeconds = Math.ceil((targetTime - Date.now()) / 1000);
+        const countdownElement = statusSummary.querySelector('.countdown-warning');
+        countdownElement.innerHTML = `⚠️ CAVITATION RISK DETECTED! Pump will stop in ${remainingSeconds} seconds. 
+          <button class="btn btn-sm btn-secondary" onclick="clearCavitationCountdown()">Cancel</button>`;
+      }
+    }
+  }, 1000);
+}
+
+// Clear cavitation countdown if conditions improve or user cancels
+function clearCavitationCountdown() {
+  if (cavitationCountdown) {
+    clearTimeout(cavitationCountdown.timer);
+    clearInterval(cavitationCountdown.displayTimer);
+    cavitationCountdown = null;
+    showAlert('Automatic pump shutdown canceled', 'success');
+  }
 }

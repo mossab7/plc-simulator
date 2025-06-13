@@ -166,7 +166,10 @@ async function writePLCRegister(register, value) {
         reject(err);
       });
       
-      transactionSocket.connect({ host: config.plcIp, port: config.plcPort });
+      transactionSocket.connect({ 
+        host: process.env.PLC_IP || config.plcIp, 
+        port: parseInt(process.env.PLC_PORT || config.plcPort) 
+      });
     });
     
     // FIXED: The Modbus function code and register are now correctly used
@@ -369,31 +372,19 @@ app.get('/plc/process-data', async (req, res) => {
     let cavitationAction = null;
     
     if (isCavitationRisk && pumpStatus === 1) {
-      console.warn(`CAVITATION RISK DETECTED! NPSHa (${npsha.toFixed(2)}m) < NPSHr (${npshr.toFixed(2)}m) - Stopping pump automatically`);
-      try {
-        // Stop the pump automatically
-        const stopResult = await writePLCRegister(1, 0);
-        cavitationAction = {
-          type: 'emergency_stop',
-          reason: 'Cavitation risk detected',
-          timestamp: new Date().toISOString(),
-          success: stopResult.success
-        };
-      } catch (stopError) {
-        console.error('Failed to stop pump during cavitation protection:', stopError);
-        cavitationAction = {
-          type: 'emergency_stop_failed',
-          reason: 'Cavitation risk detected but stop command failed',
-          timestamp: new Date().toISOString(),
-          error: stopError.message
-        };
-      }
+      console.warn(`CAVITATION RISK DETECTED! NPSHa (${npsha.toFixed(2)}m) < NPSHr (${npshr.toFixed(2)}m) - Sending warning to client`);
+      // Don't immediately stop the pump, just report the risk
+      cavitationAction = {
+        type: 'warning',
+        reason: 'Cavitation risk detected',
+        timestamp: new Date().toISOString()
+      };
     }
     
     res.json({
       success: true,
       timestamp: new Date().toISOString(),
-      pumpRunning: cavitationAction?.success === false ? pumpStatus === 1 : pumpStatus === 1 && !isCavitationRisk,
+      pumpRunning: pumpStatus === 1, // Only depend on actual pump status
       values: {
         temp,
         pressure,
